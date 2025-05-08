@@ -1,3 +1,5 @@
+import logging
+
 import requests
 import json
 from os import path
@@ -57,10 +59,10 @@ class LinkedIn:
             with open(config_path, 'w') as file:
                 json.dump(config, file, indent=4)
 
-            print("Cookies updated in config file.")
+            logging.info("Cookies updated in config file.")
 
         except (FileNotFoundError, IOError) as e:
-            print(f"Error updating config file: {e}")
+            logging.info(f"Error updating config file: {e}")
 
     def check_session(self, resp_headers=None ):
         try:

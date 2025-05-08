@@ -78,7 +78,12 @@ class ContentManager:
         if not gpt_response:
             custom_print("Error: gpt response empty")
             return
-
+        addition= """
+        
+        Informiere dich noch heute auf https://gkconsulting.io/ 
+        oder buche direkt ein erstes Gespräch: https://cal.grosser.group/team/gk-consulting/unverbindliches-erstgesprach.
+        """
+        gpt_response += addition
         custom_print("Post: " + sub(r'\n+', ' ', gpt_response))
 
         linkedin        = LinkedIn(self.cookies)

@@ -3,7 +3,11 @@ from core.content_manager import ContentManager
 import random
 import schedule
 from time import sleep
-
+import logging
+import logging.config
+import os
+import sys
+import json
 from utils import get_file_data, custom_print
 
 
@@ -46,8 +50,38 @@ def schedule_next_task():
 
     schedule.every(total_minutes_interval).minutes.do(main_task)
 
+def setup_logging():
+    log_level = os.getenv("LOG_LEVEL", "INFO").upper()
+
+    logging_config = {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "default": {
+                "format": "%(asctime)s - %(levelname)s - %(name)s - %(message)s",
+                "datefmt": "%Y-%m-%d %H:%M:%S"
+            },
+        },
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+                "stream": sys.stdout,
+                "formatter": "default",
+            },
+        },
+        "root": {
+            "handlers": ["console"],
+            "level": log_level,
+        },
+    }
+
+    logging.config.dictConfig(logging_config)
 
 if __name__ == "__main__":
+    setup_logging()
+    logger = logging.getLogger(__name__)
+
+    logger.info("Application started")
     # Run main() once initially
     main()
 

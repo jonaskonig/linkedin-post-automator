@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 from enum import Enum
 import mimetypes
@@ -13,7 +14,7 @@ class MEDIA_CATEGORY(Enum):
 
 def custom_print(message):
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    print(f"[{current_time}] {message}")
+    logging.info(f"[{current_time}] {message}")
 
 
 def get_content_type(file_path):
